@@ -1,0 +1,62 @@
+name: DVC CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install dvc
+
+      - name: Pull data with DVC
+        run: dvc pull
+
+      - name: Run tests
+        run: pytest tests/
+
+  train:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install dvc
+
+      - name: Pull data with DVC
+        run: dvc pull
+
+      - name: Train the model
+        run: python train_model.py
+
+      - name: Push model and metrics
+        run: |
+          dvc add model/
+          git add model.dvc
+          git commit -m "Track new trained model"
+          git push
+          dvc push
