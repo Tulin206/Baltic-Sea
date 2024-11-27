@@ -4,3 +4,5 @@ venv/
 *.pyc
 *.log
 /data.npz
+dvc_storage/
+

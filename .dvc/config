@@ -1,0 +1,4 @@
+[core]
+    remote = mylocalremote
+['remote "mylocalremote"']
+    url = C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/dvc_storage
