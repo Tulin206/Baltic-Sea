@@ -118,8 +118,8 @@ def create_sample_pairs(subset, look_back: int, look_ahead: int, step_size: int)
 
 # Create sample pairs for both training and validation sets
 sample, label = create_sample_pairs(train, look_back, look_ahead, step_size)
-print("X_train shape:", sample.shape)  # Should be (num_samples, look_back, c, w, h)
-print("y_train shape:", label.shape)  # Should be (num_samples, c, w, h)
+print("sample shape:", sample.shape)  # Should be (num_samples, look_back, c, w, h)
+print("label shape:", label.shape)  # Should be (num_samples, c, w, h)
 
 '''
 # Sample selection
