@@ -32,3 +32,35 @@ stages:
       hash: md5
       md5: 1d29cdf2151cdf399f5509947a8f460f
       size: 66036216
+  train_model_v2:
+    cmd: python lstm+cnn_(with-dvc).py
+    deps:
+    - path: data.npz
+      hash: md5
+      md5: fadce05a94036e9a9b7c43035c595113
+      size: 226950348
+    - path: test/data.npy
+      hash: md5
+      md5: 62ea638b8fd3180fe2d6aaffbc3e1024
+      size: 325416608
+    - path: test/mask.npy
+      hash: md5
+      md5: c7f3d366712afbb0cfb50d8ac82ba155
+      size: 27989
+    - path: train/data.npy
+      hash: md5
+      md5: ff5230174d72b610c6fc54caa518c1ba
+      size: 436191944
+    - path: train/mask.npy
+      hash: md5
+      md5: c7f3d366712afbb0cfb50d8ac82ba155
+      size: 27989
+    outs:
+    - path: metrics_v2.npy
+      hash: md5
+      md5: 96ff8271c9290db3710cd5ac1fd3d9fe
+      size: 1498
+    - path: model_v2.h5
+      hash: md5
+      md5: 90bc0f298d6db1b51c126d5566455f66
+      size: 56223496
