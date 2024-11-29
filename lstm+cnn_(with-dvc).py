@@ -184,7 +184,8 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
     )
 
     model.save("model_v2.keras")           # Save the trained model
-    np.save("metrics.npy", history.history)         # Save training metrics
+    model.save("model_v2.h5")
+    np.save("metrics_v2.npy", history.history)         # Save training metrics
 
     return history  # Return history object
 
