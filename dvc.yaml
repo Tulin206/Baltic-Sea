@@ -1,0 +1,4 @@
+stages:
+  train_model:
+    cmd: \-d data.npz -d train/data.npy -d test/data.npy -d train/mask.npy -d test/mask.npy
+      \-o model.h5 -o metrics.npy \python lstm+cnn_(with-dvc).py
