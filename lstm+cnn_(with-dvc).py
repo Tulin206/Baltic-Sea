@@ -8,7 +8,7 @@ from IPython.display import HTML
 
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Conv2D, Reshape, TimeDistributed, LSTM, Dense, Flatten
+from tensorflow.keras.layers import (Input, Conv2D, Reshape, TimeDistributed, LSTM, Dense, Flatten, Dropout, MaxPooling2D)
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error, explained_variance_score
 from tensorflow.keras.callbacks import EarlyStopping
@@ -112,6 +112,7 @@ def build_model(time_steps, channels, height, width):
     # Apply CNN to each time step
     cnn_layer = TimeDistributed(Conv2D(16, (3, 3), activation='relu', padding='same'))(input_layer)
     cnn_layer = TimeDistributed(Conv2D(32, (3, 3), activation='relu', padding='same'))(cnn_layer)
+    cnn_layer = TimeDistributed(MaxPooling2D((2, 2)))(cnn_layer)  # Add pooling for feature reduction (2nd version)
 
     # Print the shape after the CNN layer
     print("Shape after CNN layers (cnn_layer) before flatten():", cnn_layer.shape)
@@ -130,9 +131,13 @@ def build_model(time_steps, channels, height, width):
     model = Model(inputs=input_layer, outputs=reshaped_layer)
     model.summary()
 
-    # LSTM layer for temporal processing
-    lstm_layer = LSTM(64, return_sequences=False)(reshaped_layer)
-    print("Shape of LSTM layers:", lstm_layer.shape)
+    # LSTM layers for temporal processing (2nd version of the model)
+    lstm_layer = LSTM(128, return_sequences=True, dropout=0.2)(reshaped_layer)  # First LSTM layer
+    lstm_layer = LSTM(64, return_sequences=False, dropout=0.2)(lstm_layer)  # Second LSTM layer
+
+    # LSTM layer for temporal processing (1st version of the model)
+    #lstm_layer = LSTM(64, return_sequences=False)(reshaped_layer)
+    #print("Shape of LSTM layers:", lstm_layer.shape)
 
     # Separate Dense output layers for temperature and salinity predictions
     # Temperature prediction (channel 0)
@@ -178,7 +183,7 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
         callbacks=[early_stopping],  # Add EarlyStopping callback
     )
 
-    model.save("model.h5")           # Save the trained model
+    model.save("model_v2.keras")           # Save the trained model
     np.save("metrics.npy", history.history)         # Save training metrics
 
     return history  # Return history object
