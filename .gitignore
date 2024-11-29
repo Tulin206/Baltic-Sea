@@ -5,4 +5,9 @@ venv/
 *.log
 /data.npz
 dvc_storage/
+train/data.npy
+test/data.npy
+train/mask.npy
+test/mask.npy
+
 
