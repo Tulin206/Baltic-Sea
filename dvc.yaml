@@ -11,7 +11,7 @@ stages:
     - metrics.npy
     - model.h5
   train_model_v2:
-    cmd: lstm+cnn_(with-dvc).py
+    cmd: python lstm+cnn_(with-dvc).py
     deps:
     - data.npz
     - test/data.npy
