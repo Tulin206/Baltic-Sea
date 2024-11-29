@@ -1,4 +1,5 @@
 import os
+import dvc.api
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -12,12 +13,12 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error, explained_variance_score
 from tensorflow.keras.callbacks import EarlyStopping
 
-
-# Utilities
-def load_data(filepath):
+# Load raw data
+def load_raw_data(filepath):
     data = np.load(filepath)
     return data["train"], data["test"], data["mask"]
 
+# Save processed data
 def save_data(train, test, mask, train_dir="train", test_dir="test"):
     os.makedirs(train_dir, exist_ok=True)
     os.makedirs(test_dir, exist_ok=True)
@@ -25,7 +26,33 @@ def save_data(train, test, mask, train_dir="train", test_dir="test"):
     np.save(f"{test_dir}/data.npy", test)
     np.save(f"{train_dir}/mask.npy", mask)
     np.save(f"{test_dir}/mask.npy", mask)
+
+    '''
+    # Track the saved files with DVC
+    os.system(f"dvc add {train_dir}/data.npy")
+    os.system(f"dvc add {test_dir}/data.npy")
+    os.system(f"dvc add {train_dir}/mask.npy")
+    os.system(f"dvc add {test_dir}/mask.npy")
+
+    # Commit the changes to Git
+    os.system("git add .")
+    os.system("git commit -m 'Add processed data to DVC'")
+    '''
+
     print("Data split and saved!")
+
+# Load DVC-tracked data
+def load_data():
+    # Fetch paths from DVC
+    train_path = dvc.api.get_url("train/data.npy")
+    test_path = dvc.api.get_url("test/data.npy")
+    mask_path = dvc.api.get_url("train/mask.npy")
+
+    # Load data from the fetched paths
+    train = np.load(train_path)
+    test = np.load(test_path)
+    mask = np.load(mask_path)
+    return train, test, mask
 
 # Define look-back and look-ahead window sizes, this is fixed for the task
 look_back = int(7 * 24 / 6)  # 28 time steps (7 days) -> our input
@@ -124,7 +151,7 @@ def build_model(time_steps, channels, height, width):
     return model
 
 # Training
-def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=1, epochs=100):
+def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=1, epochs=10):
     # Compile the model with two separate losses for temperature and salinity
     model.compile(
         optimizer=Adam(learning_rate=0.001),
@@ -140,6 +167,7 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
                                    patience=10,  # number of epochs with no improvement before stopping
                                    restore_best_weights=True,  # restore model weights from the best epoch
                                    verbose=1)  # print out details of early stopping
+    # Train the model
     history = model.fit(
         X_train,
         [y_train_temperature, y_train_salinity],  # for multiple outputs
@@ -150,13 +178,18 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
         callbacks=[early_stopping],  # Add EarlyStopping callback
     )
 
+    model.save("model.h5")           # Save the trained model
+    np.save("metrics.npy", history.history)         # Save training metrics
+
     return history  # Return history object
 
 
 # Main
 def main():
+    # Phase 1: Initial raw data processing (only done once)
+    raw_data_path = "C:/Users/Tim/Desktop/ISRAT/RostockUniversity/data.npz"  # Actual path to data.npz
     # Load and preprocess data
-    train, test, mask = load_data("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/data.npz")
+    train, test, mask = load_raw_data(raw_data_path)
     # the shape is (t, c, w, h) -> (time, channel [temperature, salinity], width, height)
     # nan values are not of interest (land masses in this case)
     # each time step is 6 hours
@@ -165,6 +198,10 @@ def main():
     print(mask.shape)
 
     save_data(train, test, mask)
+
+    # Phase 2: Use DVC-tracked data
+    train, test, mask = load_data()
+    print(f"Train shape: {train.shape}, Test shape: {test.shape}, Mask shape: {mask.shape}")
 
     # Create sample pairs
     look_back, look_ahead, step_size = 28, 56, 4
