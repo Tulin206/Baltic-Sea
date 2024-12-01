@@ -6,6 +6,15 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from IPython.display import HTML
 
+import yaml
+
+# Load parameters from params.yaml
+with open("params.yaml", "r") as file:
+    params = yaml.safe_load(file)
+
+learning_rate = params['learning_rate']
+batch_size = params['batch_size']
+
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (Input, Conv2D, Reshape, TimeDistributed, LSTM, Dense, Flatten, Dropout, MaxPooling2D)
@@ -156,10 +165,10 @@ def build_model(time_steps, channels, height, width):
     return model
 
 # Training
-def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=1, epochs=10):
+def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=1, epochs=5):
     # Compile the model with two separate losses for temperature and salinity
     model.compile(
-        optimizer=Adam(learning_rate=0.001),
+        optimizer=Adam(learning_rate=learning_rate),        ## optimizer=Adam(learning_rate=0.001),
         loss={'temperature_output': 'mse', 'salinity_output': 'mse'},
         metrics={'temperature_output': 'mae', 'salinity_output': 'mae'}
     )
