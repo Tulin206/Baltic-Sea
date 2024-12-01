@@ -7,9 +7,12 @@ stages:
     - test/mask.npy
     - train/data.npy
     - train/mask.npy
+    - params.yaml  # Make sure params.yaml is listed here
     outs:
     - metrics.npy
     - model.h5
+    params:
+    - learning_rate  # Track learning_rate in params.yaml
   train_model_v2:
     cmd: python lstm+cnn_(with-dvc).py
     deps:
@@ -18,6 +21,9 @@ stages:
     - test/mask.npy
     - train/data.npy
     - train/mask.npy
+    - params.yaml  # Make sure params.yaml is listed here
     outs:
     - metrics_v2.npy
     - model_v2.h5
+    params:
+    - learning_rate  # Track learning_rate in params.yaml
