@@ -15,3 +15,4 @@ test/mask.npy
 /metrics.npy
 /model_v2.h5
 /metrics_v2.npy
+/params.yaml
