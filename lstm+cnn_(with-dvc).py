@@ -9,7 +9,7 @@ from IPython.display import HTML
 import yaml
 
 # Load parameters from params.yaml
-with open("params.yaml", "r") as file:
+with open("params_v2.yaml", "r") as file:
     params = yaml.safe_load(file)
 
 learning_rate = params['learning_rate']
@@ -143,6 +143,7 @@ def build_model(time_steps, channels, height, width):
     # LSTM layers for temporal processing (2nd version of the model)
     lstm_layer = LSTM(128, return_sequences=True, dropout=0.2)(reshaped_layer)  # First LSTM layer
     lstm_layer = LSTM(64, return_sequences=False, dropout=0.2)(lstm_layer)  # Second LSTM layer
+    print("Shape of LSTM layers:", lstm_layer.shape)
 
     # LSTM layer for temporal processing (1st version of the model)
     #lstm_layer = LSTM(64, return_sequences=False)(reshaped_layer)

@@ -21,7 +21,7 @@ stages:
     - test/mask.npy
     - train/data.npy
     - train/mask.npy
-    - params.yaml  # Make sure params.yaml is listed here
+    - params_v2.yaml  # Make sure params.yaml is listed here
     outs:
     - metrics_v2.npy
     - model_v2.h5
