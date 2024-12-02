@@ -1,7 +1,6 @@
 import os
 import dvc.api
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from IPython.display import HTML
@@ -197,6 +196,7 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
     model.save("model_v2.h5")
     np.save("metrics_v2.npy", history.history)         # Save training metrics
 
+    print("history_key: ", history.history.keys())  # To check what keys are available in the history
     return history  # Return history object
 
 
@@ -260,6 +260,7 @@ def main():
 
     # Train the model
     history = train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity)
+    print(history.history.keys())  # To check what keys are available in the history
 
     # Optionally, visualize history (if needed)
     plt.plot(history.history['loss'], label='train loss')
@@ -267,6 +268,101 @@ def main():
     plt.legend()
     plt.show()
 
+    # Use the trained model to predict on the validation data
+    y_pred = model.predict(X_val)
+    print("Shape of y_pred:", np.shape(y_pred))
+
+    # Print the shape of the predicted output to verify
+    # y_pred will now be a list with two elements: one for temperature and one for salinity
+    temperature_pred = y_pred[0]  # Predicted temperature (first output)
+    salinity_pred = y_pred[1]  # Predicted salinity (second output)
+
+    # Print the shape of predictions
+    print("Shape of Predicted Temperature:", temperature_pred.shape)
+    print("Shape of Predicted Salinity:", salinity_pred.shape)
+
+    # Flatten the predictions and true values to make them compatible for RMSE and R² calculation
+    temperature_pred_flat = temperature_pred.flatten()
+    salinity_pred_flat = salinity_pred.flatten()
+
+    y_val_temperature_flat = y_val_temperature.flatten()
+    y_val_salinity_flat = y_val_salinity.flatten()
+
+    # Calculate RMSE for temperature and salinity on validation data
+    rmse_temperature = np.sqrt(mean_squared_error(y_val_temperature_flat, temperature_pred_flat))
+    rmse_salinity = np.sqrt(mean_squared_error(y_val_salinity_flat, salinity_pred_flat))
+
+    # Calculate R² score for temperature and salinity on validation data
+    r2_temperature = r2_score(y_val_temperature_flat, temperature_pred_flat)
+    r2_salinity = r2_score(y_val_salinity_flat, salinity_pred_flat)
+
+    # Calculate Mean Absolute Percentage Error (MAPE) for temperature and salinity
+    mape_temperature = mean_absolute_percentage_error(y_val_temperature_flat, temperature_pred_flat)
+    mape_salinity = mean_absolute_percentage_error(y_val_salinity_flat, salinity_pred_flat)
+
+    # Calculate Explained Variance Score for temperature and salinity
+    explained_variance_temperature = explained_variance_score(y_val_temperature_flat, temperature_pred_flat)
+    explained_variance_salinity = explained_variance_score(y_val_salinity_flat, salinity_pred_flat)
+
+    # Print the RMSE and R² scores
+    print("RMSE")
+    print(f"Validation Temperature: {rmse_temperature:.4f}")
+    print(f"Validation Salinity: {rmse_salinity:.4f}")
+
+    print("\nR2 score")
+    print(f"Validation Temperature: {r2_temperature:.4f}")
+    print(f"Validation Salinity: {r2_salinity:.4f}")
+
+    # Print the MAPE scores
+    print("\nMAPE (Mean Absolute Percentage Error)")
+    print(f"Validation Temperature: {mape_temperature:.4f}")
+    print(f"Validation Salinity: {mape_salinity:.4f}")
+
+    # Print the Explained Variance scores
+    print("\nExplained Variance Score")
+    print(f"Validation Temperature: {explained_variance_temperature:.4f}")
+    print(f"Validation Salinity: {explained_variance_salinity:.4f}")
+
+    # Evaluate model on validation data and print the total validation loss
+    val_loss = model.evaluate(X_val, [y_val_temperature, y_val_salinity])
+    print(f"Total Validation Loss: {val_loss}")
+
+    # Plot training and validation loss curve
+    plt.figure(figsize=(10, 6))
+    plt.plot(history.history['loss'], label='Training Loss')
+    plt.plot(history.history['val_loss'], label='Validation Loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training and Validation Loss Curve')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # Plot training and validation MAE for temperature and salinity
+    plt.figure(figsize=(14, 6))
+
+    # Plot Temperature MAE
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['temperature_output_mae'], label='Training Temperature MAE')
+    plt.plot(history.history['val_temperature_output_mae'], label='Validation Temperature MAE')
+    plt.xlabel('Epochs')
+    plt.ylabel('Mean Absolute Error (MAE)')
+    plt.title('Temperature MAE Over Epochs')
+    plt.legend()
+    plt.grid()
+
+    # Plot Salinity MAE
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['salinity_output_mae'], label='Training Salinity MAE')
+    plt.plot(history.history['val_salinity_output_mae'], label='Validation Salinity MAE')
+    plt.xlabel('Epochs')
+    plt.ylabel('Mean Absolute Error (MAE)')
+    plt.title('Salinity MAE Over Epochs')
+    plt.legend()
+    plt.grid()
+
+    plt.tight_layout()
+    plt.show()
 
 if __name__ == "__main__":
     main()

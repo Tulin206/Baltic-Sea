@@ -68,13 +68,13 @@ stages:
       size: 27989
     params:
       params.yaml:
-        learning_rate: 0.001
+        learning_rate: 0.0001
     outs:
     - path: metrics_v2.npy
       hash: md5
-      md5: fc815e50d657a07d9a407ee16aed9a78
+      md5: bf032f4df56e20855b1bf319d91c26c5
       size: 1048
     - path: model_v2.h5
       hash: md5
-      md5: 8c6b1b8707dbe96adf70196b7ad0f151
+      md5: a75d01c3f9f415bc8f964a850039dbf4
       size: 56223496
