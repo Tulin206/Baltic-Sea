@@ -48,8 +48,8 @@ stages:
       size: 226950348
     - path: params_v2.yaml
       hash: md5
-      md5: 091016a6b9905387b6341c47541d421e
-      size: 39
+      md5: 4fbd035f01815b2cdf32b8569ab8b814
+      size: 38
     - path: test/data.npy
       hash: md5
       md5: 62ea638b8fd3180fe2d6aaffbc3e1024
@@ -72,9 +72,9 @@ stages:
     outs:
     - path: metrics_v2.npy
       hash: md5
-      md5: bf032f4df56e20855b1bf319d91c26c5
+      md5: 692630abf88441c8640fd150337725ec
       size: 1048
     - path: model_v2.h5
       hash: md5
-      md5: a75d01c3f9f415bc8f964a850039dbf4
+      md5: 74f2e2e578f442d79afaa996cd2edbc2
       size: 56223496
