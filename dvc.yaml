@@ -13,6 +13,8 @@ stages:
     - model.h5
     params:
     - learning_rate  # Track learning_rate in params.yaml
+    metrics:
+    - metrics/metrics.json  # Track the metrics file (your saved metrics)
   train_model_v2:
     cmd: python lstm+cnn_(with-dvc).py
     deps:
@@ -27,3 +29,5 @@ stages:
     - model_v2.h5
     params:
     - learning_rate  # Track learning_rate in params.yaml
+    metrics:
+    - metrics/metrics.json  # Track the metrics file (your saved metrics)
