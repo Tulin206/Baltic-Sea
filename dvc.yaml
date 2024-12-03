@@ -12,8 +12,8 @@ stages:
     - metrics.npy
     - model.h5
     params:
-    - params.yaml:learning_rate
-    - params.yaml:batch_size
+    - learning_rate
+    - batch_size
     metrics:
     - metrics/metrics.json 
   train_model_v2:
@@ -28,8 +28,8 @@ stages:
     outs:
     - metrics_v2.npy
     - model_v2.h5
-    params:
-    - params_v2.yaml:learning_rate_v2
-    - params_v2.yaml:batch_size_v2
+    params_v2:
+    - learning_rate_v2
+    - batch_size_v2
     metrics:
     - metrics/metrics_v2.json 
