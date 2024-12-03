@@ -6,13 +6,15 @@ from matplotlib.animation import FuncAnimation
 from IPython.display import HTML
 
 import yaml
+import json
+import seaborn as sns
 
 # Load parameters from params.yaml
 with open("params_v2.yaml", "r") as file:
     params = yaml.safe_load(file)
 
-learning_rate = params['learning_rate']
-batch_size = params['batch_size']
+learning_rate = params['learning_rate_v2']
+batch_size = params['batch_size_v2']
 
 import tensorflow as tf
 from tensorflow.keras.models import Model
@@ -165,7 +167,7 @@ def build_model(time_steps, channels, height, width):
     return model
 
 # Training
-def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=1, epochs=5):
+def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_val_temperature, y_val_salinity, batch_size=batch_size, epochs=2):
     # Compile the model with two separate losses for temperature and salinity
     model.compile(
         optimizer=Adam(learning_rate=learning_rate),        ## optimizer=Adam(learning_rate=0.001),
@@ -199,6 +201,37 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
     print("history_key: ", history.history.keys())  # To check what keys are available in the history
     return history  # Return history object
 
+
+# Save metrics
+def save_metrics_to_json(file_path, metrics):
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+    # Convert numpy float32 to float for JSON serialization
+    def convert_to_float(value):
+        if isinstance(value, np.generic):  # Check if it's a numpy object
+            return value.item()  # Convert to native Python type (e.g., float)
+        return value
+
+    # Convert all metrics values to a serializable format
+    metrics = {key: convert_to_float(value) for key, value in metrics.items()}
+
+    # If the file exists, load the existing data
+    data = []
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'r') as f:
+                data = json.load(f)
+        except json.decoder.JSONDecodeError:
+            # Handle the case where the JSON is malformed or empty
+            print(f"Warning: {file_path} is empty or malformed. Starting with an empty list.")
+            data = []  # Reset to an empty list if the file can't be read
+
+    # Append the new metrics to the list
+    data.append(metrics)
+
+    # Save the updated list back to the file
+    with open(file_path, 'w') as f:
+        json.dump(data, f, indent=4)
 
 # Main
 def main():
@@ -326,6 +359,33 @@ def main():
     # Evaluate model on validation data and print the total validation loss
     val_loss = model.evaluate(X_val, [y_val_temperature, y_val_salinity])
     print(f"Total Validation Loss: {val_loss}")
+
+    # Save metrics to JSON
+    metrics = {
+        "run_id": len(os.listdir("metrics")) + 1,  # Example: Auto-increment ID
+        "rmse_temperature": rmse_temperature,
+        "rmse_salinity": rmse_salinity,
+        "r2_temperature": r2_temperature,
+        "r2_salinity": r2_salinity,
+        "mape_temperature": mape_temperature,
+        "mape_salinity": mape_salinity,
+        "explained_variance_temperature": explained_variance_temperature,
+        "explained_variance_salinity": explained_variance_salinity
+    }
+
+    os.makedirs("metrics", exist_ok=True)
+    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v2.json", metrics)
+    print("\nSaved Metrics:", metrics)
+
+    # Visualize Metrics from JSON
+    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v2.json", 'r') as f:
+        all_metrics = json.load(f)
+    for metric in all_metrics:
+        print(metric)
+
+    # metrics = {"loss": val_loss, "rmse_temperature": rmse_temperature, "rmse_salinity": rmse_salinity}
+    # with open("metrics.json", "w") as f:
+    #     json.dump(metrics, f)
 
     # Plot training and validation loss curve
     plt.figure(figsize=(10, 6))
