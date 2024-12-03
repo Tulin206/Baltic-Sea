@@ -17,13 +17,8 @@ with open("params_v2.yaml", "r") as file:
 # with open("params.yaml", "r") as file:
 #     params = yaml.safe_load(file)
 
-# For train_model_v2
-learning_rate = params['learning_rate_v2']
-batch_size = params['batch_size_v2']
-
-# # For train_model
-# learning_rate = params['learning_rate']
-# batch_size = params['batch_size']
+learning_rate = params['learning_rate']
+batch_size = params['batch_size']
 
 import tensorflow as tf
 from tensorflow.keras.models import Model
