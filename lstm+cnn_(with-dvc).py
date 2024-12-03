@@ -9,7 +9,7 @@ import yaml
 import json
 import seaborn as sns
 
-# Load parameters from params.yaml for train_model_v2
+# Load parameters from params_v2.yaml for train_model_v2
 with open("params_v2.yaml", "r") as file:
     params = yaml.safe_load(file)
 
