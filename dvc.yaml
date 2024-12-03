@@ -30,4 +30,4 @@ stages:
     params:
     - learning_rate  # Track learning_rate in params.yaml
     metrics:
-    - metrics/metrics.json  # Track the metrics file (your saved metrics)
+    - metrics/metrics_v2.json  # Track the metrics file (your saved metrics)
