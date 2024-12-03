@@ -28,7 +28,7 @@ stages:
     outs:
     - metrics_v2.npy
     - model_v2.h5
-    params_v2:
+    params:
     - learning_rate_v2
     - batch_size_v2
     metrics:
