@@ -200,8 +200,8 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
 
     # For train_model_v2
     #model.save("model_v2.keras")           # Save the trained model
-    model.save("model_v2.h5")
-    np.save("metrics_v2.npy", history.history)         # Save training metrics
+    model.save("outputs/train_model_v2/model_v2.h5")
+    np.save("outputs/train_model_v2/metrics_v2.npy", history.history)         # Save training metrics
 
     # # For train_model
     # model.save("model.h5")
@@ -384,11 +384,11 @@ def main():
 
     # For train_model_v2
     os.makedirs("metrics", exist_ok=True)
-    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v2.json", metrics)
+    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model_v2/metrics_v2.json", metrics)
     print("\nSaved Metrics:", metrics)
 
     # Visualize Metrics from JSON for train_model_v2
-    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v2.json", 'r') as f:
+    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model_v2/metrics_v2.json", 'r') as f:
         all_metrics = json.load(f)
     for metric in all_metrics:
         print(metric)

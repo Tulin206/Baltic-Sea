@@ -9,10 +9,10 @@ stages:
     - train/mask.npy
     - params.yaml
     outs:
-    - metrics.npy
-    - model.h5
+    - outputs/train_model/metrics.npy
+    - outputs/train_model/model.h5
     metrics:
-    - metrics/metrics.json 
+    - metrics/train_model/metrics.json 
   train_model_v2:
     cmd: python lstm+cnn_(with-dvc).py
     deps:
@@ -23,7 +23,7 @@ stages:
     - train/mask.npy
     - params_v2.yaml 
     outs:
-    - metrics_v2.npy
-    - model_v2.h5
+    - outputs/train_model_v2/metrics_v2.npy
+    - outputs/train_model_v2/model_v2.h5
     metrics:
-    - metrics/metrics_v2.json 
+    - metrics/train_model_v2/metrics_v2.json 
