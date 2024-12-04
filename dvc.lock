@@ -9,8 +9,8 @@ stages:
       size: 226950348
     - path: params.yaml
       hash: md5
-      md5: 091016a6b9905387b6341c47541d421e
-      size: 39
+      md5: 4fbd035f01815b2cdf32b8569ab8b814
+      size: 38
     - path: test/data.npy
       hash: md5
       md5: 62ea638b8fd3180fe2d6aaffbc3e1024
@@ -27,22 +27,18 @@ stages:
       hash: md5
       md5: c7f3d366712afbb0cfb50d8ac82ba155
       size: 27989
-    params:
-      params.yaml:
-        batch_size: 16
-        learning_rate: 0.0001
     outs:
     - path: metrics.npy
       hash: md5
-      md5: baf724c456408b06c35d5a7ca35190e1
+      md5: 7bf3f0aa40bfc84d1417c53382d50050
       size: 778
     - path: metrics/metrics.json
       hash: md5
-      md5: 6a2fb86b2e763f5fa37699780d07999b
-      size: 443
+      md5: 0ec84ee7c6ddacbfca80b6e3ceff863e
+      size: 438
     - path: model.h5
       hash: md5
-      md5: 1b8a52c83e467179cd3eeea434c204f3
+      md5: 148346b8025e0608c9cf5d28a7d64d1c
       size: 66036216
   train_model_v2:
     cmd: python lstm+cnn_(with-dvc).py
