@@ -9,13 +9,13 @@ import yaml
 import json
 import seaborn as sns
 
-# # Load parameters from params_v2.yaml for train_model_v2
-# with open("params_v2.yaml", "r") as file:
-#     params = yaml.safe_load(file)
-
-# Load parameters from params.yaml for train_model
-with open("params.yaml", "r") as file:
+# Load parameters from params_v2.yaml for train_model_v2
+with open("params_v2.yaml", "r") as file:
     params = yaml.safe_load(file)
+
+# # Load parameters from params.yaml for train_model
+# with open("params.yaml", "r") as file:
+#     params = yaml.safe_load(file)
 
 learning_rate = params['learning_rate']
 batch_size = params['batch_size']
@@ -126,7 +126,7 @@ def build_model(time_steps, channels, height, width):
     # Apply CNN to each time step
     cnn_layer = TimeDistributed(Conv2D(16, (3, 3), activation='relu', padding='same'))(input_layer)
     cnn_layer = TimeDistributed(Conv2D(32, (3, 3), activation='relu', padding='same'))(cnn_layer)
-    #cnn_layer = TimeDistributed(MaxPooling2D((2, 2)))(cnn_layer)  # Add pooling for feature reduction (2nd version)
+    cnn_layer = TimeDistributed(MaxPooling2D((2, 2)))(cnn_layer)  # Add pooling for feature reduction (2nd version)
 
     # Print the shape after the CNN layer
     print("Shape after CNN layers (cnn_layer) before flatten():", cnn_layer.shape)
@@ -145,14 +145,14 @@ def build_model(time_steps, channels, height, width):
     model = Model(inputs=input_layer, outputs=reshaped_layer)
     model.summary()
 
-    # # LSTM layers for temporal processing (2nd version of the model)
-    # lstm_layer = LSTM(128, return_sequences=True, dropout=0.2)(reshaped_layer)  # First LSTM layer
-    # lstm_layer = LSTM(64, return_sequences=False, dropout=0.2)(lstm_layer)  # Second LSTM layer
-    # print("Shape of LSTM layers:", lstm_layer.shape)
-
-    # LSTM layer for temporal processing (1st version of the model)
-    lstm_layer = LSTM(64, return_sequences=False)(reshaped_layer)
+    # LSTM layers for temporal processing (2nd version of the model)
+    lstm_layer = LSTM(128, return_sequences=True, dropout=0.2)(reshaped_layer)  # First LSTM layer
+    lstm_layer = LSTM(64, return_sequences=False, dropout=0.2)(lstm_layer)  # Second LSTM layer
     print("Shape of LSTM layers:", lstm_layer.shape)
+
+    # # LSTM layer for temporal processing (1st version of the model)
+    # lstm_layer = LSTM(64, return_sequences=False)(reshaped_layer)
+    # print("Shape of LSTM layers:", lstm_layer.shape)
 
     # Separate Dense output layers for temperature and salinity predictions
     # Temperature prediction (channel 0)
@@ -198,14 +198,14 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
         callbacks=[early_stopping],  # Add EarlyStopping callback
     )
 
-    # # For train_model_v2
-    # #model.save("model_v2.keras")           # Save the trained model
-    # model.save("outputs/train_model_v2/model_v2.h5")
-    # np.save("outputs/train_model_v2/metrics_v2.npy", history.history)         # Save training metrics
+    # For train_model_v2
+    #model.save("model_v2.keras")           # Save the trained model
+    model.save("outputs_train_model_v2/model_v2.h5")
+    np.save("outputs_train_model_v2/metrics_v2.npy", history.history)         # Save training metrics
 
-    # For train_model
-    model.save("outputs/train_model/model.h5")
-    np.save("outputs/train_model/metrics.npy", history.history)  # Save training metrics
+    # # For train_model
+    # model.save("outputs_train_model/model.h5")
+    # np.save("outputs_train_model/metrics.npy", history.history)  # Save training metrics
 
     print("history_key: ", history.history.keys())  # To check what keys are available in the history
     return history  # Return history object
@@ -371,7 +371,8 @@ def main():
 
     # Save metrics to JSON
     metrics = {
-        "run_id": len(os.listdir("metrics")) + 1,  # Example: Auto-increment ID
+        "run_id": len(os.listdir("metrics_train_model_v2")) + 1,  # Example: Auto-increment ID for train_model_v2
+        #"run_id": len(os.listdir("metrics_train_model")) + 1,  # Example: Auto-increment ID for train_model
         "rmse_temperature": rmse_temperature,
         "rmse_salinity": rmse_salinity,
         "r2_temperature": r2_temperature,
@@ -382,31 +383,31 @@ def main():
         "explained_variance_salinity": explained_variance_salinity
     }
 
-    # # For train_model_v2
-    # os.makedirs("metrics", exist_ok=True)
-    # save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model_v2/metrics_v2.json", metrics)
-    # print("\nSaved Metrics:", metrics)
-    #
-    # # Visualize Metrics from JSON for train_model_v2
-    # with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model_v2/metrics_v2.json", 'r') as f:
-    #     all_metrics = json.load(f)
-    # for metric in all_metrics:
-    #     print(metric)
+    # For train_model_v2
+    os.makedirs("metrics_train_model_v2", exist_ok=True)
+    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model_v2/metrics_v2.json", metrics)
+    print("\nSaved Metrics:", metrics)
+
+    # Visualize Metrics from JSON for train_model_v2
+    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model_v2/metrics_v2.json", 'r') as f:
+        all_metrics = json.load(f)
+    for metric in all_metrics:
+        print(metric)
 
     # metrics = {"loss": val_loss, "rmse_temperature": rmse_temperature, "rmse_salinity": rmse_salinity}
     # with open("metrics.json", "w") as f:
     #     json.dump(metrics, f)
 
-    # For train_model
-    os.makedirs("metrics", exist_ok=True)
-    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model/metrics.json", metrics)
-    print("\nSaved Metrics:", metrics)
-
-    # Visualize Metrics from JSON for train_model_v2
-    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/train_model/metrics.json", 'r') as f:
-        all_metrics = json.load(f)
-    for metric in all_metrics:
-        print(metric)
+    # # For train_model
+    # os.makedirs("metrics", exist_ok=True)
+    # save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model/metrics.json", metrics)
+    # print("\nSaved Metrics:", metrics)
+    #
+    # # Visualize Metrics from JSON for train_model_v2
+    # with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model/metrics.json", 'r') as f:
+    #     all_metrics = json.load(f)
+    # for metric in all_metrics:
+    #     print(metric)
 
     # Plot training and validation loss curve
     plt.figure(figsize=(10, 6))

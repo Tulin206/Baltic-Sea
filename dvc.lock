@@ -28,17 +28,17 @@ stages:
       md5: c7f3d366712afbb0cfb50d8ac82ba155
       size: 27989
     outs:
-    - path: metrics/train_model/metrics.json
+    - path: metrics_train_model/metrics.json
       hash: md5
-      md5: fa16852444ca4fe695fa4d5f593b86d2
+      md5: 5f446b6ea3bc87e3b7270fec21a559be
       size: 440
-    - path: outputs/train_model/metrics.npy
+    - path: outputs_train_model/metrics.npy
       hash: md5
-      md5: b2cc83b1b56d7f86d06017f1ef7e88e3
+      md5: 7ed850efdc838fc3ab8c1b58fb0bf246
       size: 778
-    - path: outputs/train_model/model.h5
+    - path: outputs_train_model/model.h5
       hash: md5
-      md5: 1b6103dafc71f4c5261b8c9e16e7bd37
+      md5: dd866b540d06d9e10291c1777ac01b23
       size: 66036216
   train_model_v2:
     cmd: python lstm+cnn_(with-dvc).py
