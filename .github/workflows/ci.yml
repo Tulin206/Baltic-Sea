@@ -39,7 +39,7 @@ jobs:
       - name: Run Tests
         run: |
           pip install pytest
-          pytest tests/
+          pytest tests/test_script.py
 
       # Step 6: Execute script
       - name: Run Script

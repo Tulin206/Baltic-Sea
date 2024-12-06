@@ -12,3 +12,4 @@ def test_load_raw_data():
     assert isinstance(train, np.ndarray)
     assert isinstance(test, np.ndarray)
     assert isinstance(mask, np.ndarray)
+    print("test script is being executed")
