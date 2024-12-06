@@ -1,3 +1,5 @@
+import sys
+sys.path.append('C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects')
 import pytest
 import numpy as np
 from lstm_cnn_with_dvc import load_raw_data
