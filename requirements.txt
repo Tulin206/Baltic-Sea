@@ -1,5 +1,9 @@
+tensorflow==2.13.0
 numpy
 matplotlib
-tensorflow
 scikit-learn
 IPython
+seaborn
+dvc
+pytest
+flake8

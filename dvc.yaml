@@ -1,6 +1,6 @@
 stages:
   train_model:
-    cmd: python lstm+cnn_(with-dvc).py
+    cmd: python lstm_cnn_with_dvc.py
     deps:
     - data.npz
     - test/data.npy
@@ -14,7 +14,7 @@ stages:
     metrics:
     - metrics_train_model/metrics.json 
   train_model_v2:
-    cmd: python lstm+cnn_(with-dvc).py
+    cmd: python lstm_cnn_with_dvc.py
     deps:
     - data.npz
     - test/data.npy

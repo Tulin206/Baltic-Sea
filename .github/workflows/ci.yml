@@ -51,7 +51,7 @@ jobs:
         run: dvc pull
 
       - name: Train the model
-        run: python lstm+cnn_(with-dvc).py
+        run: python lstm_cnn_(with-dvc).py
 
       - name: Push model and metrics
         run: |
