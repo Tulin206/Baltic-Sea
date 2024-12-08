@@ -29,6 +29,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Debug Files Before Upload
+        run: |
+          ls -R :/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/ || echo "Directory not found!"
+
+
       # Step 4: Upload DVC Storage as Artifact from local machine
       - name: Upload DVC Storage as Artifact
         uses: actions/upload-artifact@v3
