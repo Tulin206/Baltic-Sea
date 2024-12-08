@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dvc-storage
-          path: C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea\
+          path: ${{ github.workspace }}/data/
 
       # Step 8: Pull DVC data
       - name: Pull DVC Data
