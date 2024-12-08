@@ -42,43 +42,39 @@ jobs:
           pip install flake8
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-      # Step 6: Checkout repository
-        - name: Checkout code
-          uses: actions/checkout@v3
-
-      # Step 7: Install DVC
+      # Step 6: Install DVC
       - name: Install DVC
         run: pip install dvc
 
-      # Step 8: Download DVC Storage Artifact (DVC cache)
+      # Step 7: Download DVC Storage Artifact (DVC cache)
       - name: Download DVC Storage Artifact
         uses: actions/download-artifact@v3
         with:
           name: dvc-storage
           path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/dvc_storage
 
-      # Step 9: Pull DVC data
+      # Step 8: Pull DVC data
       - name: Pull DVC Data
         run: |
           dvc pull
 
-      # Step 10: Debug Files (optional)
+      # Step 9: Debug Files (optional)
       - name: Debug Files
         run: |
           ls -R
 
-      # Step 11: Run tests
+      # Step 10: Run tests
       - name: Run Tests
         run: |
           pip install pytest
           pytest -s tests/test_script.py
 
-      # Step 12: Execute script
+      # Step 11: Execute script
       - name: Run Script
         run: |
           python lstm_cnn_with_dvc.py
 
-      # Step 13: Push DVC changes (if applicable)
+      # Step 12: Push DVC changes (if applicable)
       - name: Push DVC Changes
         run: |
           dvc add data.npz
