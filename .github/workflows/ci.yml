@@ -51,7 +51,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dvc-storage
-          path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/dvc_storage
+          path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/
 
       # Step 8: Pull DVC data
       - name: Pull DVC Data
