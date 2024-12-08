@@ -29,6 +29,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Step 4: Cache DVC storage
+      - name: Cache DVC storage
+        uses: actions/cache@v3
+        with:
+          path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/dvc_storage  # Path to your local DVC storage
+          key: ${{ runner.os }}-dvc-storage-${{ hashFiles('**/dvc.yaml') }}  # Cache key based on dvc.yaml file changes
+          restore-keys: |
+            ${{ runner.os }}-dvc-storage-
+
       # Step 4: Run linting (optional)
       - name: Run Linting
         run: |
