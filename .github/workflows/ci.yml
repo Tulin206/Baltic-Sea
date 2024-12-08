@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dvc-storage
-          path: ${{ github.workspace }}/data/
+          path: C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea
 
       # Step 5: Run linting (optional)
       - name: Run Linting
@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dvc-storage
-          path: ${{ github.workspace }}/data/
+          path: C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea
 
       # Step 8: Pull DVC data
       - name: Pull DVC Data
