@@ -45,6 +45,7 @@ jobs:
       - name: Run Script
         run: |
           python lstm_cnn_with_dvc.py  # Ensure this is a valid Python command
+          git add params_v2.yaml
 
   dvc-track-data:
     runs-on: ubuntu-latest
