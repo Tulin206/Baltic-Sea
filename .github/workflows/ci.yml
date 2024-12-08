@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dvc-storage
-          path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/dvc_storage
+          path: C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/
 
       # Step 5: Run linting (optional)
       - name: Run Linting
