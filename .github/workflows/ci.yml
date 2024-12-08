@@ -66,6 +66,8 @@ jobs:
       # Step 4: Push DVC changes (if applicable)
       - name: Push DVC Changes
         run: |
-          dvc add train/data.npy
-          dvc add test/data.npy
+          dvc add data.npz
+          dvc add params.yaml
+          dvc add params_v2.yaml
+          dvc repro
           dvc push
