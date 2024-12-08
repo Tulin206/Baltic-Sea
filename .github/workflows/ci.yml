@@ -35,36 +35,36 @@ jobs:
           pip install flake8
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-      # Step 5: Run tests
-      - name: Run Tests
-        run: |
-          pip install pytest
-      #    pytest -s tests/test_script.py
-
-      # Step 6: Execute script
-      - name: Run Script
-        run: |
-          python lstm_cnn_with_dvc.py  # Ensure this is a valid Python command
-          git add params_v2.yaml
-
-  dvc-track-data:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Checkout repository
+      # Step 5: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install DVC
+      # Step 6: Install DVC
       - name: Install DVC
         run: pip install dvc
 
-      # Step 3: Pull DVC data
+      # Step 7: Pull DVC data
       - name: Pull DVC Data
         run: |
           dvc pull
 
-      # Step 4: Push DVC changes (if applicable)
+      # Step 8: Debug Files
+      - name: Debug Files
+        run: |
+          ls -R
+
+      # Step 9: Run tests
+      - name: Run Tests
+        run: |
+          pip install pytest
+          pytest -s tests/test_script.py
+
+      # Step 10: Execute script
+      - name: Run Script
+        run: |
+          python lstm_cnn_with_dvc.py
+
+      # Step 11: Push DVC changes (if applicable)
       - name: Push DVC Changes
         run: |
           dvc add data.npz
