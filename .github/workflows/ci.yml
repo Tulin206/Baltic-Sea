@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
+          architecture: 'x64'  # Specify architecture if necessary
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -31,8 +32,11 @@ jobs:
 
       - name: Debug Files Before Upload
         run: |
-          ls -R ${{ github.workspace }} || echo "Directory not found!"
-
+          if (Test-Path -Path "C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea") {
+                ls -R C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea
+              } else {
+                Write-Output "Directory not found!"
+              }
 
       # Step 4: Upload DVC Storage as Artifact from local machine
       - name: Upload DVC Storage as Artifact
