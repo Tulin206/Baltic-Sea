@@ -57,10 +57,11 @@ jobs:
 
       # Step 7: Download DVC Storage Artifact (DVC cache)
       - name: Download DVC Storage Artifact
+        if: always()  # Ensure it doesn't run if the artifact isn't available
         uses: actions/download-artifact@v3
         with:
           name: dvc-storage
-          path: ${{ github.workspace }}/data/
+          path: C:\actions-runner\baltic_sea\Baltic-Sea\Baltic-Sea\
 
       # Step 8: Pull DVC data
       - name: Pull DVC Data
