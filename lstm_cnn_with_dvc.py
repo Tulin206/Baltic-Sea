@@ -13,8 +13,8 @@ import seaborn as sns
 # with open("params_v2.yaml", "r") as file:
 #     params = yaml.safe_load(file)
 
-# Load parameters from params_v1.yaml for train_model
-with open("params_v1.yaml", "r") as file:
+# Load parameters from params.yaml for train_model
+with open("params.yaml", "r") as file:
     params = yaml.safe_load(file)
 
 learning_rate = params['learning_rate']

@@ -11,12 +11,12 @@ train/mask.npy
 test/mask.npy
 
 
-/model.h5
-/metrics.npy
+/model_v1.h5
+/metrics_v1.npy
 /model_v2.h5
 /metrics_v2.npy
-/params_v1.yaml
+/params.yaml
 /params_v2.yaml
 
-/metrics.json
+/metrics_v1.json
 /metrics_v2.json
