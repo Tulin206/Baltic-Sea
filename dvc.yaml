@@ -1,6 +1,6 @@
 stages:
   train_model:
-    cmd: python lstm_cnn_with_dvc.py --params params_v1.yaml --output metrics.npy --model model.h5
+    cmd: python lstm_cnn_with_dvc.py --params params_v1.yaml --output metrics_v1.npy --model model_v1.h5
     deps:
     - data.npz
     - test/data.npy
@@ -9,8 +9,8 @@ stages:
     - train/mask.npy
     - params_v1.yaml
     outs:
-    - metrics.npy
-    - model.h5
+    - metrics_v1.npy
+    - model_v1.h5
     params:
       - learning_rate
   train_model_v2:
