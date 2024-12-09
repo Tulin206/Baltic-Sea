@@ -88,7 +88,7 @@ jobs:
       - name: Push DVC Changes
         run: |
           dvc add data.npz
-          dvc add params.yaml
+          dvc add params_v1.yaml
           dvc add params_v2.yaml
           dvc repro
           dvc push
