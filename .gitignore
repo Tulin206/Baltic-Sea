@@ -17,3 +17,6 @@ test/mask.npy
 /metrics_v2.npy
 /params.yaml
 /params_v2.yaml
+
+/metrics.json
+/metrics_v2.json

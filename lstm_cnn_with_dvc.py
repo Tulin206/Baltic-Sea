@@ -200,12 +200,12 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
 
     # # For train_model_v2
     # # model.save("model_v2.keras")           # Save the trained model
-    # model.save("outputs_train_model_v2/model_v2.h5")
-    # np.save("outputs_train_model_v2/metrics_v2.npy", history.history)         # Save training metrics
+    # model.save("model_v2.h5")
+    # np.save("metrics_v2.npy", history.history)         # Save training metrics
 
     # For train_model
-    model.save("outputs_train_model/model.h5")
-    np.save("outputs_train_model/metrics.npy", history.history)  # Save training metrics
+    model.save("model.h5")
+    np.save("metrics.npy", history.history)  # Save training metrics
 
     print("history_key: ", history.history.keys())  # To check what keys are available in the history
     return history  # Return history object
@@ -370,9 +370,9 @@ def main():
     print(f"Total Validation Loss: {val_loss}")
 
     # Save metrics to JSON
+    os.makedirs("metrics", exist_ok=True)
     metrics = {
-        #"run_id": len(os.listdir("metrics_train_model_v2")) + 1,  # Example: Auto-increment ID for train_model_v2
-        "run_id": len(os.listdir("metrics_train_model")) + 1,  # Example: Auto-increment ID for train_model
+        "run_id": len(os.listdir("metrics")) + 1,
         "rmse_temperature": rmse_temperature,
         "rmse_salinity": rmse_salinity,
         "r2_temperature": r2_temperature,
@@ -384,12 +384,11 @@ def main():
     }
 
     # # For train_model_v2
-    # os.makedirs("metrics_train_model_v2", exist_ok=True)
-    # save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model_v2/metrics_v2.json", metrics)
+    # save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_v2.json", metrics)
     # print("\nSaved Metrics:", metrics)
     #
     # # Visualize Metrics from JSON for train_model_v2
-    # with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model_v2/metrics_v2.json", 'r') as f:
+    # with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_v2.json", 'r') as f:
     #     all_metrics = json.load(f)
     # for metric in all_metrics:
     #     print(metric)
@@ -399,12 +398,11 @@ def main():
     #     json.dump(metrics, f)
 
     # For train_model
-    os.makedirs("metrics", exist_ok=True)
-    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model/metrics.json", metrics)
+    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics.json", metrics)
     print("\nSaved Metrics:", metrics)
 
     # Visualize Metrics from JSON for train_model_v2
-    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics_train_model/metrics.json", 'r') as f:
+    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics.json", 'r') as f:
         all_metrics = json.load(f)
     for metric in all_metrics:
         print(metric)

@@ -1,7 +1,8 @@
 schema: '2.0'
 stages:
   train_model:
-    cmd: python lstm+cnn_(with-dvc).py
+    cmd: python lstm_cnn_with_dvc.py --params params.yaml --output metrics.npy --model
+      model.h5
     deps:
     - path: data.npz
       hash: md5
@@ -27,21 +28,21 @@ stages:
       hash: md5
       md5: c7f3d366712afbb0cfb50d8ac82ba155
       size: 27989
+    params:
+      params.yaml:
+        learning_rate: 0.0001
     outs:
-    - path: metrics_train_model/metrics.json
+    - path: metrics.npy
       hash: md5
-      md5: 5f446b6ea3bc87e3b7270fec21a559be
-      size: 440
-    - path: outputs_train_model/metrics.npy
-      hash: md5
-      md5: 7ed850efdc838fc3ab8c1b58fb0bf246
+      md5: 924ecbd5dd7947348c06e7782db7db43
       size: 778
-    - path: outputs_train_model/model.h5
+    - path: model.h5
       hash: md5
-      md5: dd866b540d06d9e10291c1777ac01b23
+      md5: cf1c8b8d792af7a19c0a092f751f2198
       size: 66036216
   train_model_v2:
-    cmd: python lstm+cnn_(with-dvc).py
+    cmd: python lstm_cnn_with_dvc.py --params params_v2.yaml --output metrics_v2.npy
+      --model model_v2.h5
     deps:
     - path: data.npz
       hash: md5
@@ -49,8 +50,8 @@ stages:
       size: 226950348
     - path: params_v2.yaml
       hash: md5
-      md5: fe58095e9e07bb0255ceec7cf62a8649
-      size: 37
+      md5: 7bd7917d52312ed6c1b889280f6ec0de
+      size: 35
     - path: test/data.npy
       hash: md5
       md5: 62ea638b8fd3180fe2d6aaffbc3e1024
@@ -67,16 +68,15 @@ stages:
       hash: md5
       md5: c7f3d366712afbb0cfb50d8ac82ba155
       size: 27989
+    params:
+      params.yaml:
+        learning_rate: 0.0001
     outs:
-    - path: metrics_train_model_v2/metrics_v2.json
+    - path: metrics_v2.npy
       hash: md5
-      md5: 71455ac8f77ec73e45b1ee10730936ff
-      size: 438
-    - path: outputs_train_model_v2/metrics_v2.npy
-      hash: md5
-      md5: 38fd101f106576e7e11a93582ceed7eb
+      md5: 294b4ab763cea3187412475ecb147864
       size: 778
-    - path: outputs_train_model_v2/model_v2.h5
+    - path: model_v2.h5
       hash: md5
-      md5: 4cce8599e73594f07530984222a2adbd
+      md5: 63e691a11acde0a05b7c8f0ca60a684c
       size: 56223496
