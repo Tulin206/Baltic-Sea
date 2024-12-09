@@ -1,0 +1,13 @@
+[
+    {
+        "run_id": 1,
+        "rmse_temperature": 8.183411598205566,
+        "rmse_salinity": 6.38381290435791,
+        "r2_temperature": -0.3383131816789475,
+        "r2_salinity": -0.16454425855525545,
+        "mape_temperature": 2491321679872.0,
+        "mape_salinity": 2514120605696.0,
+        "explained_variance_temperature": 0.06794089078903198,
+        "explained_variance_salinity": 0.06330430507659912
+    }
+]
