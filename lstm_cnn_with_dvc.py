@@ -401,7 +401,7 @@ def main():
     save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v1.json", metrics)
     print("\nSaved Metrics:", metrics)
 
-    # Visualize Metrics from JSON for train_model_v2
+    # Visualize Metrics from JSON for train_model_v1
     with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v1.json", 'r') as f:
         all_metrics = json.load(f)
     for metric in all_metrics:
