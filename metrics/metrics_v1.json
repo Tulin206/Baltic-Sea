@@ -20,5 +20,16 @@
         "mape_salinity": 7305903472640.0,
         "explained_variance_temperature": 0.7781325578689575,
         "explained_variance_salinity": 0.6749967336654663
+    },
+    {
+        "run_id": 2,
+        "rmse_temperature": 8.324884414672852,
+        "rmse_salinity": 6.5026373863220215,
+        "r2_temperature": -0.3849854659307794,
+        "r2_salinity": -0.20830034973336686,
+        "mape_temperature": 17236539473920.0,
+        "mape_salinity": 17359785951232.0,
+        "explained_variance_temperature": 0.036653757095336914,
+        "explained_variance_salinity": 0.034006714820861816
     }
 ]
