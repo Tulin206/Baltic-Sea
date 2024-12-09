@@ -13,8 +13,8 @@ import seaborn as sns
 # with open("params_v2.yaml", "r") as file:
 #     params = yaml.safe_load(file)
 
-# Load parameters from params.yaml for train_model
-with open("params.yaml", "r") as file:
+# Load parameters from params_v1.yaml for train_model
+with open("params_v1.yaml", "r") as file:
     params = yaml.safe_load(file)
 
 learning_rate = params['learning_rate']
@@ -204,8 +204,8 @@ def train_model(model, X_train, y_train_temperature, y_train_salinity, X_val, y_
     # np.save("metrics_v2.npy", history.history)         # Save training metrics
 
     # For train_model
-    model.save("model.h5")
-    np.save("metrics.npy", history.history)  # Save training metrics
+    model.save("model_v1.h5")
+    np.save("metrics_v1.npy", history.history)  # Save training metrics
 
     print("history_key: ", history.history.keys())  # To check what keys are available in the history
     return history  # Return history object
@@ -398,11 +398,11 @@ def main():
     #     json.dump(metrics, f)
 
     # For train_model
-    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics.json", metrics)
+    save_metrics_to_json("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v1.json", metrics)
     print("\nSaved Metrics:", metrics)
 
     # Visualize Metrics from JSON for train_model_v2
-    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics.json", 'r') as f:
+    with open("C:/Users/Tim/Desktop/ISRAT/RostockUniversity/PyCharmProjects/metrics/metrics_v1.json", 'r') as f:
         all_metrics = json.load(f)
     for metric in all_metrics:
         print(metric)
