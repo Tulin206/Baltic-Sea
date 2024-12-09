@@ -12,7 +12,9 @@ stages:
     - outputs_train_model/metrics.npy
     - outputs_train_model/model.h5
     metrics:
-    - metrics_train_model/metrics.json 
+    - metrics_train_model/metrics.json
+    params:
+      - learning_rate
   train_model_v2:
     cmd: python lstm_cnn_with_dvc.py
     deps:
@@ -26,4 +28,7 @@ stages:
     - outputs_train_model_v2/metrics_v2.npy
     - outputs_train_model_v2/model_v2.h5
     metrics:
-    - metrics_train_model_v2/metrics_v2.json 
+    - metrics_train_model_v2/metrics_v2.json
+    params:
+    - learning_rate
+    - batch_size
