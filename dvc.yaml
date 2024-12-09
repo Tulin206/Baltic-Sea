@@ -9,8 +9,8 @@ stages:
     - train/mask.npy
     - params.yaml
     outs:
-    - metrics_v1.npy
-    - model_v1.h5
+    - metrics/metrics_v1.npy
+    - metrics/model_v1.h5
     params:
       - learning_rate
   train_model_v2:

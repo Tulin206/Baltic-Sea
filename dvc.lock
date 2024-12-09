@@ -32,13 +32,13 @@ stages:
       params.yaml:
         learning_rate: 0.0001
     outs:
-    - path: metrics_v1.npy
+    - path: metrics/metrics_v1.npy
       hash: md5
-      md5: 4d9318bf8fac48a12902b82a62865072
+      md5: 85a69d0b29db07657c849b37392391e8
       size: 778
-    - path: model_v1.h5
+    - path: metrics/model_v1.h5
       hash: md5
-      md5: 58dd2ff483722ce7c823dd7759ab33f4
+      md5: a678bfdeaa0a593f6a4a21a6e2820629
       size: 66036216
   train_model_v2:
     cmd: python lstm_cnn_with_dvc.py --params params_v2.yaml --output metrics_v2.npy
@@ -74,9 +74,9 @@ stages:
     outs:
     - path: metrics_v2.npy
       hash: md5
-      md5: 294b4ab763cea3187412475ecb147864
+      md5: c0f871e2dd670818ab5a0a4653bf7401
       size: 778
     - path: model_v2.h5
       hash: md5
-      md5: 63e691a11acde0a05b7c8f0ca60a684c
+      md5: 67f853e2b2ea5730431b5e79b7eaf9c9
       size: 56223496

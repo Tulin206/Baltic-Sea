@@ -1,90 +1,46 @@
 [
     {
-        "run_id": 1,
-        "rmse_temperature": 8.183411598205566,
-        "rmse_salinity": 6.38381290435791,
-        "r2_temperature": -0.3383131816789475,
-        "r2_salinity": -0.16454425855525545,
-        "mape_temperature": 2491321679872.0,
-        "mape_salinity": 2514120605696.0,
-        "explained_variance_temperature": 0.06794089078903198,
-        "explained_variance_salinity": 0.06330430507659912
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 3.7464938163757324,
-        "rmse_salinity": 3.420872926712036,
-        "r2_temperature": 0.7194961418594101,
-        "r2_salinity": 0.6655972470997642,
-        "mape_temperature": 7285190950912.0,
-        "mape_salinity": 7305903472640.0,
-        "explained_variance_temperature": 0.7781325578689575,
-        "explained_variance_salinity": 0.6749967336654663
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 8.324884414672852,
-        "rmse_salinity": 6.5026373863220215,
-        "r2_temperature": -0.3849854659307794,
-        "r2_salinity": -0.20830034973336686,
-        "mape_temperature": 17236539473920.0,
-        "mape_salinity": 17359785951232.0,
-        "explained_variance_temperature": 0.036653757095336914,
-        "explained_variance_salinity": 0.034006714820861816
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 8.341079711914062,
-        "rmse_salinity": 6.5161051750183105,
-        "r2_temperature": -0.3903796466896112,
-        "r2_salinity": -0.21331099399838793,
-        "mape_temperature": 13749646786560.0,
-        "mape_salinity": 13732680826880.0,
-        "explained_variance_temperature": 0.033053040504455566,
-        "explained_variance_salinity": 0.030641019344329834
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 8.339371681213379,
-        "rmse_salinity": 6.515232563018799,
-        "r2_temperature": -0.3898102189814332,
-        "r2_salinity": -0.21298579223636538,
-        "mape_temperature": 12199638597632.0,
-        "mape_salinity": 12135544389632.0,
-        "explained_variance_temperature": 0.03341937065124512,
-        "explained_variance_salinity": 0.030781805515289307
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 8.32833480834961,
-        "rmse_salinity": 6.5044755935668945,
-        "r2_temperature": -0.3861334550883828,
-        "r2_salinity": -0.20898377400851986,
-        "mape_temperature": 14331408285696.0,
-        "mape_salinity": 14079555010560.0,
-        "explained_variance_temperature": 0.03588742017745972,
-        "explained_variance_salinity": 0.03358691930770874
-    },
-    {
-        "run_id": 2,
-        "rmse_temperature": 8.341109275817871,
-        "rmse_salinity": 6.516952037811279,
-        "r2_temperature": -0.3903896414318313,
-        "r2_salinity": -0.21362613581546452,
-        "mape_temperature": 13798270304256.0,
-        "mape_salinity": 13830460538880.0,
-        "explained_variance_temperature": 0.03303021192550659,
-        "explained_variance_salinity": 0.030405402183532715
-    },
-    {
         "run_id": 3,
-        "rmse_temperature": 8.32343578338623,
-        "rmse_salinity": 6.502041816711426,
-        "r2_temperature": -0.38450337477157803,
-        "r2_salinity": -0.20807970233677242,
-        "mape_temperature": 19812086448128.0,
-        "mape_salinity": 19766869753856.0,
-        "explained_variance_temperature": 0.036974549293518066,
-        "explained_variance_salinity": 0.034193575382232666
+        "rmse_temperature": 8.323653221130371,
+        "rmse_salinity": 6.500317096710205,
+        "r2_temperature": -0.38457697631659804,
+        "r2_salinity": -0.20743868858557657,
+        "mape_temperature": 13488249372672.0,
+        "mape_salinity": 13228931284992.0,
+        "explained_variance_temperature": 0.03693431615829468,
+        "explained_variance_salinity": 0.03455662727355957
+    },
+    {
+        "run_id": 4,
+        "rmse_temperature": 8.327348709106445,
+        "rmse_salinity": 6.503854751586914,
+        "r2_temperature": -0.38580598274531286,
+        "r2_salinity": -0.20875349161613777,
+        "mape_temperature": 13108440465408.0,
+        "mape_salinity": 13111024156672.0,
+        "explained_variance_temperature": 0.03610563278198242,
+        "explained_variance_salinity": 0.03368675708770752
+    },
+    {
+        "run_id": 5,
+        "rmse_temperature": 8.323616981506348,
+        "rmse_salinity": 6.501800537109375,
+        "r2_temperature": -0.3845642914254932,
+        "r2_salinity": -0.20799013997720794,
+        "mape_temperature": 13775543468032.0,
+        "mape_salinity": 13742282637312.0,
+        "explained_variance_temperature": 0.036948323249816895,
+        "explained_variance_salinity": 0.03416478633880615
+    },
+    {
+        "run_id": 5,
+        "rmse_temperature": 8.330653190612793,
+        "rmse_salinity": 6.5078887939453125,
+        "r2_temperature": -0.3869067575026188,
+        "r2_salinity": -0.21025371880786747,
+        "mape_temperature": 13355135795200.0,
+        "mape_salinity": 13254530170880.0,
+        "explained_variance_temperature": 0.03536742925643921,
+        "explained_variance_salinity": 0.03265804052352905
     }
 ]
